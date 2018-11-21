@@ -32,3 +32,9 @@ td {
 .centerCell {
     text-align: center;
 }
+
+
+#time {
+    font-size: 120pt;
+    text-align: center;
+}

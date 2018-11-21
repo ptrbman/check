@@ -58,6 +58,28 @@ function update(day, hour, oldstate) {
     next_page = res[0] + "?day="  + day + "&hour=" + hour + "&newstate=" + oldstate;
     window.location = next_page;    
 }
+
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  // add a zero in front of numbers<10
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+  t = setTimeout(function() {
+    startTime()
+  }, 500);
+}
+
 </script>
 
 <link href="StyleSheet.css" rel="stylesheet" type="text/css">
@@ -133,9 +155,16 @@ foreach ($daterange as $date){
 //     }
 // }
 print("</table>");
-print("</html>");
+
 
 // print_r($boxes);
 $conn->close();
 
 ?>
+<div class="klass" id="time"></div>
+
+<script>
+    startTime();
+</script>
+</html>
+
