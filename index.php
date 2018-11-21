@@ -1,8 +1,6 @@
 <?php
-$servername = "localhost";
-$username = "ptr";
-$password = "Check444!";
-$database = "reward";
+
+include '../db.ini';
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
@@ -20,7 +18,6 @@ if (array_key_exists("day", $_GET)) {
     $ustate = htmlspecialchars($_GET["newstate"]);
 
     $sql = "INSERT INTO rewards (id, day, hour, success) VALUES (0, '" . $uday . "', " . $uhour . ", " . $ustate . ")";
-    print($sql);
     $result = mysqli_query($conn, $sql);
     if ($result == false) {
         die(mysqli_error($conn));
@@ -46,7 +43,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-$startDate = new DateTime('2018-11-18');
+$startDate = new DateTime('2018-11-20');
 $endDate = new DateTime('tomorrow');
 $interval = new DateInterval('P1D');
 $daterange = new DatePeriod($startDate, $interval ,$endDate);
@@ -62,10 +59,17 @@ function update(day, hour, oldstate) {
     window.location = next_page;    
 }
 </script>
+
+<link href="StyleSheet.css" rel="stylesheet" type="text/css">
+
+<center><h1>CheckB<img style="width:90px;" src="check.png">x</h1></center>
+
+
 <?php
+// TABLE
 print("<table border=\"1\">");
 print("<tr>");
-print("<td>++Day++</td>");
+print("<td>Day</td>");
 foreach (range(0, 23) as $hour) {
     print("<td>" . $hour . "-" . ($hour+1) . "</td>");
 }
@@ -88,24 +92,26 @@ foreach ($daterange as $date){
     print("<td>" . $date->format("M-d") . "</td>");
     foreach (range(0, 23) as $hour) {
 
-        $t = getSuccess($boxes, $datestr, $hour);        
-        $bgcolor = "#BBBBBB";
+        $t = getSuccess($boxes, $datestr, $hour);
+        $background = "background: #BBBBBB;";
         if ($t == 0) {
-            $bgcolor = "#FF0000";
+            // $background = "background-image: linear-gradient(#FF0000, #882222);";
+            $background = "background-image: linear-gradient(#FF0000, #773333)";            
         } else if ($t == 1) {
-            $bgcolor = "#00FF00";
+            $background = "background-image: linear-gradient(#00FF00, #337733)";
+            // $background = "bgcolor=#000000;";                        
             $count += 1;
         }
 
-        $style = "style='width:50px; height:50px'";
-        $bgstr = "bgcolor='" . $bgcolor . "'";
+
+        $style = "style='width:50px; height:50px; " . $background . "'";        
         $newt = $t - 1;
         if ($newt < -1) {
             $newt = 1;
         }
         $onclick = "onclick='update(\"" . $datestr . "\", \"" . $hour . "\", \"" . $newt . "\");'";
               
-        print("<td " .  $style . " " . $bgstr . " " . $onclick . ">..</td>");
+        print("<td " .  $style . " " . $onclick . "></td>");
     }
     print("<td>" . $count . "</td>");
     print("</tr>");
