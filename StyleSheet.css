@@ -1,8 +1,9 @@
 h1 {
     text-align: center;
-    font-size: 120pt;
+    font-size: 140pt;
     color: #000099;
     margin-bottom: 5px;
+    font-family: pirateFont;        
 }
 
 table {
@@ -33,8 +34,33 @@ td {
     text-align: center;
 }
 
+@font-face {
+    font-family: pirateFont;
+    src: url(Treamd.ttf);
+}
 
 #time {
+    margin: auto;
     font-size: 120pt;
     text-align: center;
+    flex: 0 0 65%;
+    font-family: pirateFont;    
+}
+
+#totalCoins {
+    margin: auto;
+    font-size: 120pt;
+    text-align: center;
+    flex: 1;
+    font-family: pirateFont;    
+}
+
+#coin {
+    flex: 0 0 10%;
+    vertical-align: middle;
+    margin-right: 200px;
+}
+
+#wrapper {
+    display: flex;
 }

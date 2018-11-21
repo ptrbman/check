@@ -107,6 +107,8 @@ function getSuccess($array, $date, $hour) {
     }
 }
 
+$totalCount = 0;
+  
 foreach ($daterange as $date){
     $datestr = $date->format("Y-m-d");
     $count = 0;
@@ -136,6 +138,7 @@ foreach ($daterange as $date){
         print("<td " .  $style . " " . $onclick . "></td>");
     }
     print("<td>" . $count . "</td>");
+    $totalCount += $count;
     print("</tr>");
 }
 
@@ -161,10 +164,14 @@ print("</table>");
 $conn->close();
 
 ?>
-<div class="klass" id="time"></div>
+
+<div id="wrapper">
+  <div id="time"></div>
+    <div id="totalCoins"><?php print($totalCount); ?></div>      
+    <div id="coin"><img style="width:200px;" src="coin.jpg"></div>  
+</div>  
 
 <script>
     startTime();
 </script>
 </html>
-
